@@ -21,4 +21,8 @@ public class Song {
         return totalStreams;
     }  
 
+    // Prints out all of the information about a song to the user
+    public void displaySongToUser(){
+        System.out.println("Song Title:" + title + "\nArtist Name:" + artistName + "\nCurrent Number of Plays:" + totalStreams);
+    }
 }
