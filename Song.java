@@ -23,6 +23,6 @@ public class Song {
 
     // Prints out all of the information about a song to the user
     public void displaySongToUser(){
-        System.out.println("Song Title:" + title + "\nArtist Name:" + artistName + "\nCurrent Number of Plays:" + totalStreams +"\n");
+        System.out.println("Song Title: " + title + "\nArtist Name: " + artistName + "\nCurrent Number of Plays: " + totalStreams +"\n");
     }
 }

@@ -1,31 +1,42 @@
 import java.util.Scanner;
 
 public class Main {
-    private final static int WELCOME_MENU_LENGTH = 4;
+    private final static int WELCOME_MENU_LENGTH = 5;
 
     public static void main(String[] args) {
-        // Adds some default songs to the song list at the start of the program.
+        //Program is runninning
+        boolean running = true;
+
+        // Adds some default songs to the song list at the start of the program and display a welcome message to the user.
         addDefaultSongs();
+        System.out.println("Welcome to Jo's Streaming Service!");
 
         // Open the scanner for user input 
         Scanner scanner = new Scanner(System.in);
-      
-
-        // Get the selected menu option and call the corresponding function for that number  
-        switch (getMenuChoice(scanner)){
-            case 1:
-            addUserEnteredSong(scanner);
-            break;
-            case 2:
-            removeUserEnteredSong(scanner);
-            break;
-            case 3:
-            MusicLibrary.getSongsWithOverXStreams(-1);
-            break;
-            case 4:
-            getUserEnteredXStreamsSongs(scanner);
-            break;
-        };
+        
+        while(running){
+            // Get the selected menu option and call the corresponding function for that number  
+            switch (getMenuChoice(scanner)){
+                case 1:
+                addUserEnteredSong(scanner);
+                break;
+                case 2:
+                removeUserEnteredSong(scanner);
+                break;
+                case 3:
+                // Will display all songs because all songs have 0 or more streams
+                MusicLibrary.getSongsWithOverXStreams(-1);
+                break;
+                case 4:
+                getUserEnteredXStreamsSongs(scanner);
+                break;
+                case 5:
+                // Exits the program
+                System.out.println("Goodbye!");
+                running = false;
+                break;
+            };
+        }
 
         // Close out the scanner 
         scanner.close();
@@ -34,8 +45,8 @@ public class Main {
 
     // Keeps asking the user to enter a menu option until they enter an integer between 1 and 4
     public static int getMenuChoice(Scanner scanner){
-        String menuText= "Please select the corresponding number (1-4) from the menu below:\n 1. Add a new song to the list of songs\n 2. Remove a song from the list of songs \n 3. Print a list of all the songs stored \n 4. Print a list of songs over a given number of streams";
-        System.out.println("Welcome to Jo's Streaming Service!\nWhat would you like to do today?\n" + menuText);
+        String menuText= "Please select the corresponding number (1-5) from the menu below:\n 1. Add a new song to the list of songs\n 2. Remove a song from the list of songs \n 3. Print a list of all the songs stored \n 4. Print a list of songs over a given number of streams \n 5. Exit";
+        System.out.println("What would you like to do?\n" + menuText);
         int choice = scanner.nextInt();
         // Call nextLine to clear the newLine character in the scanner 
         scanner.nextLine();
@@ -48,6 +59,7 @@ public class Main {
         return choice;
     }
 
+    // Adds some default sonngs to the Music Library's allSongs list
     public static void addDefaultSongs(){
         MusicLibrary.addNewSongToList("Baby", "Justin Bieber", 339757805);
         MusicLibrary.addNewSongToList("Tempo", "Valley", 44027);
@@ -64,6 +76,7 @@ public class Main {
 
     }
 
+    // Gets the required inputs from the user and then calls the Music Library's function to add the new song
     public static void addUserEnteredSong(Scanner scanner){
         System.out.println("Please enter the title of the song you would like to add: ");
         String title = scanner.nextLine();
@@ -77,6 +90,8 @@ public class Main {
         System.out.println(title + " has been added to your music library");
     }
 
+    // Gets the required inputs from the user and then calls the Music Library's function to remove the specified song
+    // Notifies the user as to whether there song was able to be removed or not
     public static void removeUserEnteredSong(Scanner scanner){
         System.out.println("Please enter the title of the song you would like to remove: ");
         String title = scanner.nextLine();
@@ -87,13 +102,15 @@ public class Main {
         }
     }
 
+    // Gets the required inputs from the user and then calls the Music Library's function to display the songs with more than 'x' streams
+    // Notifies the user as to how many songs have more than 'x' streams 
     public static void getUserEnteredXStreamsSongs(Scanner scanner){
         System.out.println("Please enter the number of streams that we should fiter songs to have: ");
         int streamThreshold = scanner.nextInt();
         // Call nextLine to clear the newLine character in the scanner 
         scanner.nextLine();
         int totalSongsDisplayed = MusicLibrary.getSongsWithOverXStreams(streamThreshold);
-        System.out.println("There are" + totalSongsDisplayed + "songs with more than " + streamThreshold + " streams.");
+        System.out.println("There are " + totalSongsDisplayed + " songs with more than " + streamThreshold + " streams.");
         
     }
 }
