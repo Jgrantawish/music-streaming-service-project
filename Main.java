@@ -51,7 +51,7 @@ public class Main {
         // Call nextLine to clear the newLine character in the scanner 
         scanner.nextLine();
         while (choice < 1 || choice > WELCOME_MENU_LENGTH){
-            System.out.println("You did not enter a valid number. " + menuText);
+            System.out.println("Uh Oh! You did not enter a valid number. " + menuText);
             choice = scanner.nextInt();
             // Call nextLine to clear the newLine character in the scanner 
             scanner.nextLine();
@@ -86,8 +86,17 @@ public class Main {
         int streamCount = scanner.nextInt();
         // Call nextLine to clear the newLine character in the scanner 
         scanner.nextLine();
-        MusicLibrary.addNewSongToList(title, artist, streamCount);
-        System.out.println(title + " has been added to your music library");
+        while (streamCount < 0){
+            System.out.println("Uh oh! Number of streams cannot be negative. Please enter a positive number.");
+            streamCount = scanner.nextInt();
+            // Call nextLine to clear the newLine character in the scanner 
+            scanner.nextLine();
+        }
+        if (MusicLibrary.addNewSongToList(title, artist, streamCount)){
+            System.out.println(title + " has been added to your music library");
+        } else{
+            System.out.println("Uh oh! This song already exists in your music library");
+        }
     }
 
     // Gets the required inputs from the user and then calls the Music Library's function to remove the specified song
