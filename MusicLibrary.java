@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MusicLibrary {
-    private static ArrayList<Song> allSongs;
+    private static ArrayList<Song> allSongs = new ArrayList<>();
 
     // Adds a new song to the allSongs list based on the parameters passed in
     public static void addNewSongToList(String title, String artistName, int streams){
@@ -9,22 +9,29 @@ public class MusicLibrary {
         allSongs.add(newSong);
     }
 
-    // Removes a song from the allSongs list
-    public static void removeSongFromList(String songTitle){
+    // Returns true if a song by that title was found and removed from the list and false if no song was removed
+    public static boolean removeSongFromList(String songTitle){
         Song song = findSongByTitle(songTitle);
+        boolean removed = false;
         if (song != null) {
             allSongs.remove(song);
+            removed = true;
         }
+        return removed;
     }
 
     // Iterates through the allSongs list and checks whether each song has a total number of steams greater than the integer passed in
     // If a song has more than 'x' streams, it prints the information about that song to the user
-    public static void getSongsWithOverXStreams(int x){
+    // Returns the total number of songs that it has displayed  
+    public static int getSongsWithOverXStreams(int x){
+        int songsOverXStreams = 0; 
         for (Song song : allSongs) {
             if (song.getTotalStreams() > x){
                 song.displaySongToUser();
+                songsOverXStreams ++;
             }
         }
+        return songsOverXStreams;
     }
 
     // Returns the song with the song title that was passed in
@@ -32,7 +39,7 @@ public class MusicLibrary {
     private static Song findSongByTitle(String title){
         Song foundSong = null;
         for (Song song : allSongs) {
-            if (song.getSongTitle() == title){
+            if (song.getSongTitle().equals(title)){
                 foundSong = song;
                 break;
             }
